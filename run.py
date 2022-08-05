@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import *
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'mysql://b3edec7175fbde:5214a1af@us-cdbr-east-06.cleardb.net/heroku_aad124d2c897400'
@@ -8,7 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 db = SQLAlchemy(app)
 
 
-class User(db.model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
@@ -18,7 +19,7 @@ class User(db.model):
 
 @app.route("/")
 def index():
-    return "hello world!"
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
